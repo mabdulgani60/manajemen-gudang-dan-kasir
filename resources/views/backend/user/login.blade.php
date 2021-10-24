@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{asset('images/user.png')}}" rel="icon" type="image/x-icon"/>
     <link href="{{asset('images/user.png')}}" rel="shortcut icon" type="image/x-icon"/>
-    <title>Live Bacery Admin/User Login</title>
+    <title>Grocery System Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="{{asset('backend/login/css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('backend/login/css/bootstrap-responsive.min.css')}}"/>
@@ -61,8 +61,9 @@
             </div>
         </div>
         <div class="form-actions">
-            <span class="pull-left"><a href="{{route('reset.password')}}" class="flip-link btn btn-info">Lost password?</a></span>
-            <span class="pull-right"><button type="submit" class="btn btn-success"> Login</button></span>
+            <center>
+            <span class=""><button type="submit" class="btn btn-info"> Login</button></span>
+            </center>
         </div>
     </form>
 </div>

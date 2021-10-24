@@ -82,15 +82,6 @@
                                          </span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="rank">Rank*</label>
-                                    <input type="number" class="form-control" id="rank" name="rank"
-                                           placeholder="Enter rank">
-                                    <span class="error"><b>
-                                         @if($errors->has('rank'))
-                                                {{$errors->first('rank')}}
-                                            @endif</b></span>
-                                </div>
-                                <div class="form-group">
                                     <label>Status</label>
 
                                     <input type="radio" name="status" value="1" id="Active" checked=""><label

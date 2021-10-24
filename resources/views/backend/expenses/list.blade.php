@@ -14,10 +14,18 @@
                     <h3>Expenses Management</h3>
                 </div>
                 <div class="title_right">
-                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="padding-left: 110px;">
-                            <div class="input-group">
-                                <a href="{{route('expenses.create')}}" class="btn btn-success">New Expenses</a>
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group top_search">
+                        <div class="row">
+                            <div class="col-md-7"></div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <a href="{{route('expenses.report')}}" class="btn btn-success"> Import</a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <a href="{{route('expenses.create')}}" class="btn btn-success">New expenses</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,19 +92,23 @@
                                         <td> {{$pc->product_name}}</td>
                                         <td> {{$pc->created_at}}</td>
                                         <td>
-                                            <a href="{{route('expenses.edit',$pc->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i> Edit</a>
-                                            <form action="{{route('expenses.delete' ,$pc->id)}}" method="post">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                {{ csrf_field()}}
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('are you sure to delete?')" ><i class="fa fa-trash-o"></i> Delete</button>
-                                            </form>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a href="{{route('expenses.edit',$pc->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <form action="{{route('expenses.delete' ,$pc->id)}}" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        {{ csrf_field()}}
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('are you sure to delete?')" ><i class="fa fa-trash-o"></i> Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="{{route('sales.printall')}}" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
                         </div>
                     </div>
                 </div>
@@ -107,7 +119,7 @@
 @endsection
 
 @section('script')
-    <script type="text/javascript" src="/backend/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{{asset('backend/plugins/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#categorytable').DataTable();

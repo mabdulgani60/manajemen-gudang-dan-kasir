@@ -61,7 +61,6 @@
                         <div class="x_content">
                             <form action="{{route('permission.permissionasign',$roledetails->id)}}" method="post">
                                 {{ csrf_field()}}
-                                    <label for="asign">Permission Name</label>
                                     @foreach($permission as $p)
                                     @foreach($currentpermission as $cp)
                                         @if($cp->permission_key == $p->permission_key)
@@ -72,8 +71,8 @@
                                         @else
                                             @php($check = '')
                                         @endif
-                                            @endforeach
-                                    <input type="checkbox" id="{{$p->name}}" name="asignpermission[]" value="{{$p->id}}" @if(isset($check)){{$check}} @else @endif><label for="{{$p->name}}">{{$p->name}} </label>&nbsp;&nbsp;&nbsp;
+                                    @endforeach
+                                          <input type="checkbox" id="{{$p->name}}" name="asignpermission[]" value="{{$p->id}}" @if(isset($check)){{$check}} @else @endif><label for="{{$p->name}}">{{$p->name}} </label>&nbsp;&nbsp;&nbsp;
                                     @endforeach
                                 <br><br>
                                 <div class="box-footer">

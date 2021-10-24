@@ -3,7 +3,8 @@
     Make Sales Page
 @endsection
 @section('css')
-    <link rel="stylesheet" href="/backend/plugins/select2.min.css"/>
+    <link rel="stylesheet" href="{{asset('backend/plugins/select2.min.css')}}">
+    <link  href="{{asset('backend/plugins/datepicker/datepicker.css')}}" rel="stylesheet">
 @endsection
 <!-- page content -->
 @section('content')
@@ -15,7 +16,7 @@
                 </div>
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="padding-left: 75px;">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="padding-left: 95px;">
                             <div class="input-group">
                                 <a href="{{route('sales.list')}}" class="btn btn-success">View Sales Report</a>
                             </div>
@@ -24,6 +25,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
+
             @if(Session::has('success_message'))
                 <div class="alert alert-success">
                     {{ Session::get('success_message') }}<div id="msg"></div>
@@ -34,6 +36,7 @@
                     {{ Session::get('error_message') }}
                 </div>
             @endif
+            <div class="resp"></div>
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
@@ -63,10 +66,6 @@
                                 <div class="form-group">
                                     <label for="product_id">Chose Product</label>
                                     <select class="form-control js-example-basic-single" id="product_id" name="product_id" data-placeholder="--Search Product--" required>
-                                        <option value="" selected>--Select Product--</option>
-                                        @foreach($product as $m)
-                                            <option value="{{$m->id}}">Code: {{$m->code}} {{$m->name}} Stock:{{$m->stock}} &nbsp;  Price:{{$m->price}}</option>
-                                        @endforeach
                                     </select>
                                     <span class="error"><b>
                                        @if($errors->has('product_id'))
@@ -83,7 +82,7 @@
                                          @endif</b></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="price">Price*</label>
+                                    <label for="price">Price per/pices*</label>
                                     <input type="number" class="form-control" name="price" id="price" placeholder="price" required>
                                     <span class="error"><b>
                                          @if($errors->has('price'))
@@ -105,15 +104,16 @@
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <button type="submit" name="btnSave" class="btn btn-primary">Make
-                                        Sales
-                                    </button>
+                                    <button type="submit" name="btnSave" class="btn btn-primary">MakeSales</button>
                                 </div>
                             </form>
                             <br><br>
                             <div id="saleslist">
+
                             </div>
-                            <a href="{{route('sales.printall')}}" class="btn btn-info"><i class="fa fa-print"></i> Print</a>
+                            <div id="ajaxform">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,16 +123,26 @@
     <!-- /page content -->
 @endsection
 @section('script')
-    <script type="text/javascript" src="/backend/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{{asset('backend/plugins/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#categorytable').DataTable();
         });
     </script>
-    <script src="/backend/plugins/select2.min.js"></script>
+    <script src="{{asset('backend/plugins/select2.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".js-example-basic-single").select2();
+        });
+    </script>
+    <script src="{{asset('backend/plugins/datepicker/datepicker.js')}}"></script>
+    <script type="text/javascript">
+        $('[data-toggle="start"]').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+
+        $('[data-toggle="end"]').datepicker({
+            format: 'yyyy-mm-dd'
         });
     </script>
     <script type="text/javascript">
@@ -168,22 +178,6 @@
                     }
                 });
             });
-//            $('#sales_quantity').keyup(function () {
-//                var qty = $(this).val();
-//                var price = $('#price').val();
-//                var path = 'gettotalprice';
-//                $.ajax({
-//                    url: path,
-//                    method: 'post',
-//                    data: {'sales_quantity': qty, 'price': price, '_token': $('input[name=_token]').val()},
-//                    dataType: 'text',
-//                    success: function (resp) {
-//                        console.log('keyed');
-//                        //$('#price').empty();
-//                        $('#price').val(resp);
-//                    }
-//                });
-//            });
         });
     </script>
     <script>
@@ -203,14 +197,20 @@
                     type: post,
                     data: data,
                     success: function (data) {
+                        refreshproduct();
                         readsales();
-                        alert(data.success_message);
+                        ajaxform();
+                        var m = "<div class='alert alert-success'>" + data.success_message + "</div>";
+                       // alert(data.success_message);
+                        $('.resp').html(m);
                         document.getElementById("btnSave").reset();
                     }
                 });
             });
         });
         readsales();
+        refreshproduct();
+        ajaxform();
         function readsales() {
             $.ajax({
                 type: 'get',
@@ -220,6 +220,45 @@
                     $('#saleslist').html(data);
                 }
             })
+        }
+        function ajaxform() {
+            $.ajax({
+                type: 'get',
+                url: "{{url('ajax-form')}}",
+                dataType: 'html',
+                success: function (data) {
+                    $('#ajaxform').html(data);
+                }
+            })
+        }
+        function refreshproduct() {
+            $.ajax({
+                type: 'get',
+                url: "{{url('refresh-product')}}",
+                dataType: 'html',
+                success: function (data) {
+                    $('#product_id').html(data);
+                }
+            })
+        }
+        function printorder() {
+                $.ajax({
+                    url: "{{url('sales-allpdf')}}",
+                    type: 'get',
+                    dataType: 'html',
+                    success:function(data) {
+                        var mywindow = window.open('', 'Sabaiko Live Bakery', 'height=400,width=600');
+                        mywindow.document.write('<html><head><title></title>');
+                        mywindow.document.write('</head><body>');
+                        mywindow.document.write(data);
+                        mywindow.document.write('</body></html>');
+                        mywindow.document.close();
+                        mywindow.focus();
+                        mywindow.print();
+                        mywindow.close();
+
+                    }
+                });
         }
 
     </script>

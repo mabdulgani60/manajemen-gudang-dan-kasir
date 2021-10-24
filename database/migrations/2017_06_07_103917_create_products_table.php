@@ -24,9 +24,9 @@ class CreateProductsTable extends Migration
             $table->double('price');
             $table->boolean('status')->default(1);
             $table->string('created_by', 100);
-            $table->foreign('created_by')->references('username')->on('users');
+            $table->foreign('created_by')->references('username')->on('users')->onUpdate('cascade');
             $table->string('modified_by', 100)->nullable();
-            $table->foreign('modified_by')->references('username')->on('users');
+            $table->foreign('modified_by')->references('username')->on('users')->onUpdate('cascade');
             $table->timestamps();
         });
     }

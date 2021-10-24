@@ -18,9 +18,10 @@ class ProductController extends Controller
     public function index()
     {
         $this->checkpermission('product-list');
-        $product = Product::join('productcategories', 'products.productcategory_id', '=', 'productcategories.id')
+        $produc = Product::join('productcategories', 'products.productcategory_id', '=', 'productcategories.id')
             ->select('products.*', 'productcategories.name as n')
             ->get();
+        $product = $produc->sortBy('name');
         return view('backend.product.list', compact('product'));
     }
 
@@ -50,13 +51,15 @@ class ProductController extends Controller
             'code' => 'required|unique:products',
             'quantity' => 'required',
             'price' => 'required',
+            'stock' => 'required',
+            'status' => 'required',
         ]);
         $message = Product::create([
             'productcategory_id' => $request->productcategory_id,
             'name' => $request->name,
             'code' => $request->code,
             'quantity' => $request->quantity,
-            'stock' => $request->quantity,
+            'stock' => $request->stock,
             'price' => $request->price,
             'status' => $request->status,
             'created_by' => Auth::user()->username,
@@ -108,6 +111,7 @@ class ProductController extends Controller
             'name' => 'required',
             'code' => 'required',
             'quantity' => 'required',
+            'stock' => 'required',
             'price' => 'required',
         ]);
         $pc = Product::find($id);
@@ -115,6 +119,7 @@ class ProductController extends Controller
         $pc->name = $request->name;
         $pc->code = $request->code;
         $pc->quantity = $request->quantity;
+        $pc->stock = $request->stock;
         $pc->price = $request->price;
         $pc->status = $request->status;
         $pc->modified_by = Auth::user()->username;
@@ -146,6 +151,32 @@ class ProductController extends Controller
             } else {
                 return redirect()->route('product.update')->with('error_message', 'failed to  Delete');
             }
+        }
+    }
+
+    public function stockedit($id)
+    {
+        $product = Product::find($id);
+        return view('backend.product.stockupdate', compact('product'));
+    }
+
+    public function stockupdate(Request $request, $id)
+    {
+        $this->validate($request, [
+            'stock' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
+            'status' => 'required',
+        ]);
+        $pc = Product::find($id);
+        $pc->stock = $pc->stock + $request->stock;
+        $pc->quantity = $request->quantity;
+        $pc->price = $request->price;
+        $pc->status = $request->status;
+        if ($pc->update()) {
+            return redirect()->route('product.list')->with('success_message', 'successfully updated Your Stock');
+        } else {
+            return redirect()->route('stock.update')->with('error_message', 'failed to  update');
         }
     }
 }

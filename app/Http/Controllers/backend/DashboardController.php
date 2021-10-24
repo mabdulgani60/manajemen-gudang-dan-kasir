@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\backend;
 
 use App\Models\Pettycash;
+use App\Models\Preorder;
 use App\Models\Product;
 use App\Models\Productcategory;
 use App\Models\Sale;
+use App\Models\Salescart;
 use App\Models\Withdraw;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,37 +22,22 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $product = Product::where('stock', '>=', 1)->get();
-        $pettycash = Pettycash::all();
-        $withdraw = Withdraw::all();
-        $totalcash = 0;
-        if ($pettycash) {
-            foreach ($pettycash as $pt) {
-                $cash = $pt->totalcash;
-                $totalcash += $cash;
-            }
-        }
-        $totalwithdraw = 0;
-        if ($withdraw) {
-            foreach ($withdraw as $w) {
-                $with = $w->totalwithdraw;
-                $totalwithdraw += $with;
-            }
-        }
+        //$birthday = Sale::whereMonth('sales_date', '=', date('m'))->whereDay('sales_date', '=', date('d')+1)->get();
+
         $sales = Sale::all();
         $totalrevenue = 0;
         if ($sales) {
             foreach ($sales as $w) {
                 $with = $w->price;
                 $totalrevenue += $with;
-
             }
         }
         $ccategory = Productcategory::all();
         $cproduct = Product::all();
         $totalcategory = count($ccategory);
         $totalproduct = count($cproduct);
-        return view('backend.dashboard.index', compact('product', 'totalcash', 'totalwithdraw','totalrevenue','totalcategory','totalproduct'));
+        $salescart = Salescart::all();
+        return view('backend.dashboard.index', compact('totalrevenue', 'totalcategory', 'totalproduct', 'salescart'));
     }
 
     /**

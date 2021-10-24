@@ -7,6 +7,7 @@ use App\Models\Expensestitle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class ExpensesController extends Controller
 {
@@ -17,6 +18,7 @@ class ExpensesController extends Controller
      */
     public function index()
     {
+        $this->checkpermission('expenses-list');
         $expenses = Expense::orderBy('created_at', 'DEC')->get();
         return view('backend.expenses.list', compact('expenses'));
     }
@@ -28,6 +30,7 @@ class ExpensesController extends Controller
      */
     public function create()
     {
+        $this->checkpermission('expenses-create');
         $expensesheading = Expensestitle::orderBy('created_at', 'DEC')->get();
         return view('backend.expenses.create', compact('expensesheading'));
     }
@@ -82,6 +85,7 @@ class ExpensesController extends Controller
      */
     public function edit($id)
     {
+        $this->checkpermission('expenses-edit');
         $expenses = Expense::find($id);
         return view('backend.expenses.edit', compact('expenses'));
     }
@@ -127,9 +131,9 @@ class ExpensesController extends Controller
      */
     public function destroy($id)
     {
-        $check = $this->checkpermission('product-delete');
+        $check = $this->checkpermission('expenses-delete');
         if ($check) {
-            $this->checkpermission('product-delete');
+            $this->checkpermission('expenses-delete');
         } else {
             $staff = Expense::find($id);
             $message = $staff->delete();
@@ -143,6 +147,7 @@ class ExpensesController extends Controller
 
     public function expensesheadingcreate()
     {
+        $this->checkpermission('expenses-heading');
         return view('backend.expenses.createtitel');
     }
 
@@ -159,5 +164,11 @@ class ExpensesController extends Controller
         } else {
             return back()->with('error_message', 'Failed To create');
         }
+    }
+    public function export()
+    {
+        $allexpenses = Expense::orderBy('created_at','DEC')->get();
+        $pdf = PDF::loadview('backend.pdfbill.expenses', compact('allexpenses'));
+        return $pdf->download('expenses.pdf');
     }
 }

@@ -29,7 +29,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="{{route('user.dashboard')}}" class="site_title"><i class="fa fa-user"></i> <span>Live Bakery</span></a>
+                    <a href="{{route('user.dashboard')}}" class="site_title"><i class="fa fa-user"></i> <span> Grocery System</span></a>
                 </div>
                 <div class="clearfix"></div>
                 <!-- menu profile quick info -->
@@ -38,7 +38,7 @@
                         <img src="{{asset('images/user.png')}}" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>Welcome,</span>
+                        <span>Selamat Datang,</span>
                         <h2>{{ Auth::user()->name}}</h2>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3>General</h3>
+                        <h3>Menu</h3>
                         <ul class="nav side-menu">
                             @php
                              $user = Auth::user();
@@ -94,8 +94,8 @@
                                 <span class="fa fa-power-off"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="{{route('change.password')}}"> Change Password</a></li>
-                                <li><a href="{{route('user.logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                                <li><a href="{{route('change.password')}}"> Ubah Password</a></li>
+                                <li><a href="{{route('user.logout')}}"><i class="fa fa-sign-out pull-right"></i> Keluar</a>
                                 </li>
                             </ul>
                         </li>
@@ -114,7 +114,7 @@
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                Copy Right All Reserve <a href="http://www.cheetahwebtech.com">CheetahWebtech</a>
+                
             </div>
             <div class="clearfix"></div>
         </footer>

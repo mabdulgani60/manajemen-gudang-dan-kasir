@@ -63,7 +63,7 @@ class UserController extends Controller
                 'role_id' => $request->role,
                 'user_id' => $message->id
             ]);
-            return redirect()->route('user.login')->with('success_message', 'You are successfully register');
+            return redirect()->route('user.register')->with('success_message', 'You are successfully register');
         } else {
             return redirect()->route('user.register')->with('error_message', 'You can not register ');
         }
@@ -113,14 +113,12 @@ class UserController extends Controller
     {
 
     }
-
     public function login(Request $request)
     {
         $this->validate($request, [
             'username' => 'required',
             'password' => 'required',
         ]);
-
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             Auth::user()->last_login = date('Y-m-d H:i:s');
             Auth::user()->save();
@@ -143,6 +141,7 @@ class UserController extends Controller
      */
     public function changepassword()
     {
+        $this->checkpermission('password-change');
         return view('backend.user.changepassword');
     }
 

@@ -1,0 +1,622 @@
+<!-- page content -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://localhost:8000/images/user.png" rel="icon" type="image/x-icon"/>
+    <link href="http://localhost:8000/images/user.png" rel="shortcut icon" type="image/x-icon"/>
+    <title>    Product Listing Page
+</title>
+
+    <!-- Bootstrap -->
+    <link href="http://localhost:8000/backend/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="http://localhost:8000/backend/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="http://localhost:8000/backend/build/css/custom.min.css" rel="stylesheet">
+    <style type="text/css">
+        .error {
+            color: red;
+        }
+    </style>
+    
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="http://localhost:8000/dashboard-panel" class="site_title"><i class="fa fa-user"></i> <span> Grocery System</span></a>
+                </div>
+                <div class="clearfix"></div>
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="http://localhost:8000/images/user.png" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Selamat Datang,</span>
+                        <h2>superadmin</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+                <br/>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>Menu</h3>
+                        <ul class="nav side-menu">
+                                                                                    <li><a href="http://localhost:8000/dashboard-panel"><i class="fa fa-home"></i>Kasir</a></li>
+                                                        <li><a href="http://localhost:8000/product-list"><i class="fa fa-product-hunt"></i>Manajemen Barang</a></li>
+                                                        <li><a href="http://localhost:8000/productcategory-list"><i class="fa fa-flag"></i>Kategori Barang</a></li>
+                                                        <li><a href="http://localhost:8000/history"><i class="fa fa-history"></i>Riwayat Penjualan</a></li>
+                                                        <li><a href="http://localhost:8000/user-register"><i class="fa fa-user"></i>Buat Akun</a></li>
+                                                    </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Settings">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <img src="http://localhost:8000/images/user.png" alt="">superadmin
+                                <span class="fa fa-power-off"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="http://localhost:8000/change-password"> Ubah Password</a></li>
+                                <li><a href="http://localhost:8000/logout"><i class="fa fa-sign-out pull-right"></i> Keluar</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+        <!--#####################################################
+        ####################################################### -->
+        <!-- page content -->
+           <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Manajemen Barang</h3>
+                </div>
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="padding-left: 120px;">
+                            <div class="input-group">
+                                <a href="http://localhost:8000/product-create" class="btn btn-success">Tambah Barang Baru</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+                                    <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Daftar Barang</h2>
+                            
+                            <div class="clearfix"></div>
+                                <div class="export-button">
+                                    <br>
+                                    <a href="/product-print" id="export" class="btn btn-success my-3" target="_blank">Print</a>
+                                </div>
+                        </div>
+                        <div class="x_content">
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="categorytable">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Kategori</th>
+                                    <th>Nama</th>
+                                    <th>Code</th>
+                                    <th>Harga Karton per/ Pcs</th>
+                                    <th>Harga Pack per/ Pcs</th>
+                                    <th>Harga Pcs</th>
+                                    <th>Stok</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                                                                                    <tr>
+                                        <th> 1</th>
+                                        <td> </td>
+                                        <td>Rice 50 kg </td>
+                                        <td>R50 </td>
+                                        <td>Rp. 380000</td>
+                                        <td>Rp. 400000</td>
+                                        <td>Rp. 430000</td>
+                                        <td> -2</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/1/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/1" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/1/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 2</th>
+                                        <td> </td>
+                                        <td>Rice 10 kg </td>
+                                        <td>R10 </td>
+                                        <td>Rp. 100000</td>
+                                        <td>Rp. 120000</td>
+                                        <td>Rp. 150000</td>
+                                        <td> 99</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/2/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/2" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/2/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 3</th>
+                                        <td> </td>
+                                        <td>Hard Soda 1 Litter </td>
+                                        <td>HS1 </td>
+                                        <td>Rp. 10000</td>
+                                        <td>Rp. 13000</td>
+                                        <td>Rp. 16000</td>
+                                        <td> 14</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/4/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/4" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/4/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 4</th>
+                                        <td> </td>
+                                        <td>Toothpaste </td>
+                                        <td>TP </td>
+                                        <td>Rp. 30000</td>
+                                        <td>Rp. 35000</td>
+                                        <td>Rp. 40000</td>
+                                        <td> 6</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/6/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/6" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/6/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 5</th>
+                                        <td> </td>
+                                        <td>Coconut Oil </td>
+                                        <td>CO </td>
+                                        <td>Rp. 70000</td>
+                                        <td>Rp. 75000</td>
+                                        <td>Rp. 80000</td>
+                                        <td> 76</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/7/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/7" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/7/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 6</th>
+                                        <td> </td>
+                                        <td>Black Forest Full </td>
+                                        <td>BFF </td>
+                                        <td>Rp. 180000</td>
+                                        <td>Rp. 210000</td>
+                                        <td>Rp. 250000</td>
+                                        <td> 38</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/8/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/8" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/8/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 7</th>
+                                        <td> </td>
+                                        <td>Black Forest Half </td>
+                                        <td>BFH </td>
+                                        <td>Rp. 170000</td>
+                                        <td>Rp. 190000</td>
+                                        <td>Rp. 200000</td>
+                                        <td> 40</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/9/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/9" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/9/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 8</th>
+                                        <td> </td>
+                                        <td>French Bread </td>
+                                        <td>FB </td>
+                                        <td>Rp. 60</td>
+                                        <td>Rp. 1</td>
+                                        <td>Rp. 60</td>
+                                        <td> 60</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/10/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/10" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/10/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 9</th>
+                                        <td> </td>
+                                        <td>Johndon Powder </td>
+                                        <td>JP </td>
+                                        <td>Rp. 100</td>
+                                        <td>Rp. 1</td>
+                                        <td>Rp. 600</td>
+                                        <td> 86</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/11/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/11" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/11/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 10</th>
+                                        <td> </td>
+                                        <td>Pampers </td>
+                                        <td>PMRS </td>
+                                        <td>Rp. 34000</td>
+                                        <td>Rp. 50000</td>
+                                        <td>Rp. 71000</td>
+                                        <td> 29</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/12/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/12" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/12/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 11</th>
+                                        <td> </td>
+                                        <td>Tisu Basah </td>
+                                        <td>TSB </td>
+                                        <td>Rp. 15000</td>
+                                        <td>Rp. 17000</td>
+                                        <td>Rp. 20000</td>
+                                        <td> 97</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/14/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/14" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/14/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 12</th>
+                                        <td> </td>
+                                        <td>Tisu </td>
+                                        <td>TS </td>
+                                        <td>Rp. 11000</td>
+                                        <td>Rp. 13000</td>
+                                        <td>Rp. 16000</td>
+                                        <td> 58</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/15/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/15" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/15/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 13</th>
+                                        <td> </td>
+                                        <td>susu </td>
+                                        <td>bls </td>
+                                        <td>Rp. 16000</td>
+                                        <td>Rp. 18000</td>
+                                        <td>Rp. 20000</td>
+                                        <td> 257</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/16/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/16" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/16/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 14</th>
+                                        <td> </td>
+                                        <td>Rusa Hitam TR 15 </td>
+                                        <td>001RH </td>
+                                        <td>Rp. 10000</td>
+                                        <td>Rp. 20000</td>
+                                        <td>Rp. 30000</td>
+                                        <td> 49</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/17/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/17" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/17/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 15</th>
+                                        <td> </td>
+                                        <td>Atlantis Merah 15 </td>
+                                        <td>001AM </td>
+                                        <td>Rp. 10000</td>
+                                        <td>Rp. 20000</td>
+                                        <td>Rp. 30000</td>
+                                        <td> 50</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/20/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/20" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/20/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                    <tr>
+                                        <th> 16</th>
+                                        <td> </td>
+                                        <td>Rusa Hitam TR 24 </td>
+                                        <td>001.1RH </td>
+                                        <td>Rp. 20000</td>
+                                        <td>Rp. 30000</td>
+                                        <td>Rp. 40000</td>
+                                        <td> 50</td>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/product-edit/21/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="http://localhost:8000/product-delete/21" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="gtjU8xRqFKnvug2NESZZOfgghBSTuS4uj1NUpXXA">
+                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a href="http://localhost:8000/stock-edit/21/edit" class="btn btn-info"><i class="fa fa-plus"></i> Stock Update</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+        <!-- / page content -->
+        <!--#####################################################
+         ####################################################### -->
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+<!-- jQuery -->
+<script src="http://localhost:8000/backend/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="http://localhost:8000/backend/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="http://localhost:8000/backend/build/js/custom.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8000/backend/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#categorytable').DataTable();
+        } );
+    </script>
+</body>
+</html>

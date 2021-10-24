@@ -21,7 +21,6 @@ class CreateSalescartsTable extends Migration
             $table->double('price');
             $table->string('saller_name');
             $table->boolean('sales_status')->default(1);
-            $table->boolean('flag')->default(1);
             $table->dateTime('sales_date');
             $table->timestamps();
         });

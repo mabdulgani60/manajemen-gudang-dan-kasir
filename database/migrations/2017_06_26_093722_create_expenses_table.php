@@ -22,9 +22,9 @@ class CreateExpensesTable extends Migration
             $table->double('dueamount');
             $table->string('product_name');
             $table->string('created_by', 100);
-            $table->foreign('created_by')->references('username')->on('users');
+            $table->foreign('created_by')->references('username')->on('users')->onUpdate('cascade');
             $table->string('modified_by', 100)->nullable();
-            $table->foreign('modified_by')->references('username')->on('users');
+            $table->foreign('modified_by')->references('username')->on('users')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -77,12 +77,19 @@
                                         <td> {{$m->permission_key}}</td>
                                         <td> {{$m->created_at}}</td>
                                         <td> {{$m->updated_at}}</td>
-                                        <td><a href="{{route('permission.edit',$m->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i> Edit</a>
-                                           <form action="{{route('permission.delete',$m->id)}}" method="post">
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                {{ csrf_field()}}
-                                                <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')"><i class="fa fa-trash-o"></i> Delete</button>
-                                            </form>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a href="{{route('permission.edit',$m->id)}}" class="btn btn-info"><i class="fa fa-pencil"></i> Edit</a>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <form action="{{route('permission.delete',$m->id)}}" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        {{ csrf_field()}}
+                                                        <button class="btn btn-danger" type="submit" onclick= "return confirm('are you sure to delete?')"><i class="fa fa-trash-o"></i> Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

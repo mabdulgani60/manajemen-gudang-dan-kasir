@@ -45,12 +45,10 @@ class ProductcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'slug' => 'required',
-            'rank' => 'required',
         ]);
         $message = Productcategory::create([
             'name' => $request->name,
             'slug' => $request->slug,
-            'rank' => $request->rank,
             'status' => $request->status,
             'created_by' => Auth::user()->username,
             'created_at' => date('Y-m-d H:i:s'),
@@ -98,12 +96,10 @@ class ProductcategoryController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'slug' => 'required',
-            'rank' => 'required',
         ]);
         $pc = Productcategory::find($id);
         $pc->name = $request->name;
         $pc->slug = $request->slug;
-        $pc->rank = $request->rank;
         $pc->status = $request->status;
         $pc->modified_by = Auth::user()->username;
         $pc->updated_at = date('Y-m-d H:i:s');

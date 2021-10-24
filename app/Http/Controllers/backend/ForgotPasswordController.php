@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Models\Password_reset;
 use App\Models\User;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
-use Reminder;
+
 
 class ForgotPasswordController extends Controller
 {
@@ -24,12 +26,24 @@ class ForgotPasswordController extends Controller
             'email' => 'required'
         ]);
         $user = User::whereEmail($request->email)->first();
+        $sentinelUser = User::findById($user->id);
         if (count($user) == 0) {
-            return redirect()->back()->with('success_message', 'Reset link is Send to Your Email');
+            return redirect()->back()->with('error_message', 'Reset link is Send to Your Email');
         }
-        $reminder = Reminder::exit() ?: Reminder::create($user);
-        dd($reminder);
+        $reminder = Password_reset::exists($sentinelUser) ?: Password_reset::create($sentinelUser);
+        $this->sendEmial($user, $reminder->token);
+        return redirect()->back()->with('success_message', 'Reset link is Send to Your Email');
+    }
 
+    private function sendEmial($user, $code)
+    {
+        Mail::send('backend.user.forget-password', [
+            'user' => $user,
+            'token' => $code,
+        ], function ($message) use ($user) {
+            $message->to($user->email);
+            $message->subject("Hello $user->name reset Your Password.");
+        });
     }
 
     public function broker()

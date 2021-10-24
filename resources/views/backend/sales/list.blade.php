@@ -15,7 +15,7 @@
                 </div>
                 <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="padding-left: 50px;">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="padding-left: 100px;">
                             <div class="input-group">
                                 <a href="{{route('sales.create')}}" class="btn btn-success">Make New Sales</a>
                             </div>
@@ -131,13 +131,13 @@
     <!-- /page content -->
 @endsection
 @section('script')
-    <script type="text/javascript" src="/backend/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="{{asset('backend/plugins/jquery.dataTables.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#categorytable').DataTable();
         } );
     </script>
-    <script src="backend/plugins/datepicker/datepicker.js"></script>
+    <script src="{{asset('backend/plugins/datepicker/datepicker.js')}}"></script>
     <script type="text/javascript">
         $('[data-toggle="start"]').datepicker({
             format: 'yyyy-mm-dd'

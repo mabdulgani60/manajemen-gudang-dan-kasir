@@ -2,11 +2,11 @@
 <table width="100%" class="table table-striped table-bordered table-hover" id="categorytable">
     <thead>
     <tr>
-        <th>S.N.</th>
-        <th>Product Name</th>
-        <th>Quantity</th>
-        <th>Total Price</th>
-        <th>sales Date</th>
+        <th>No.</th>
+        <th>Nama Barang</th>
+        <th>Jumlah</th>
+        <th>Total Harga</th>
+        <th>Aksi</th>
     </tr>
     </thead>
     <tbody>
@@ -17,11 +17,16 @@
             <td>{{$pc->name}} </td>
             <td> {{$pc->quantity}}</td>
             <td>{{$pc->price}} </td>
-            <td> {{$pc->sales_date}}</td>
+            <td>
+                <form action="{{route('salescart.delete' ,[$pc->id,$pc->product_id])}}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    {{ csrf_field()}}
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('apakah kamu yakin akan menghapusnya?')" ><i class="fa fa-trash-o"></i></button>
+                </form></td>
         </tr>
     @endforeach
     <tr>
-        <td colspan="3">Grand Total</td>
+        <td colspan="3">Total Keseluruhan</td>
         <td>
             <?php $total=0 ?>
                 @if($sales)
@@ -36,5 +41,26 @@
         </td>
         <td></td>
     </tr>
+    <tr>
+            <td colspan="3">Total Uang yang Dibayarkan</td>
+            <td>{{$money}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3">Kembalian</td>
+            <td>
+                <?php $total=0 ?>
+                @if($sales)
+                    @foreach($sales as $s)
+                        @php
+                        $price = $s->price;
+                        $total += $price;
+                        @endphp
+                    @endforeach
+                    {{$money - $total}}
+                @endif
+            </td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
